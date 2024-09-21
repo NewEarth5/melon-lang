@@ -109,5 +109,11 @@ export default {
             }
             return [new StringValue(list), new StringValue(prompt), new BooleanValue(canMultiple)]
         }
+    },
+    'define': {
+        syscallId: 'is.workflow.actions.showdefinition',
+        preprocessor: (args: Value[], lineNumber: number) => {
+            return [new StringValue(args.map(arg => arg.str).join(' '))];
+        }
     }
 }
