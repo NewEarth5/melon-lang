@@ -143,3 +143,11 @@ The `choose` function is used to choose between different items of a list (using
 ```melo,
 choose(list: list|tuple, prompt?: any, canMultiple?: boolean): string|list
 ```
+
+### `define`
+The `define`function is usedto show a word's definition (using `Show Definition`action in Siri Shortcuts). It takes a string containing a single word.
+
+**Syntax:**
+```melon
+define(word: string): void
+```
