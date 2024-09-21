@@ -128,7 +128,7 @@ export default {
             if (args.length != 1)
                 throw new SycallArgumentNumberMismatch(lineNumber, 'emojiName', 1, args.length);
             const regex_emoji = /[\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}\u{1F9B0}-\u{1F9B3}]/ug;
-            let arg = args[0].str.matchAll(regex_emoji).return;
+            let arg = args[0].str.match(regex_emoji);
             if (arg.length != 1)
                 throw new InvalidFormat(lineNumber, `First argument of emojiName must be a single emoji. Expected 1 emoji but got ${arg.length} emojis`);
             return new StringValue(arg[0]);
