@@ -1,5 +1,5 @@
 import { error } from "console";
-import { InvalidType, InvalidTypeMultiple, MelonError, SycallArgumentNumberMismatch, InvalidFormat } from "./error";
+import { InvalidType, InvalidTypeMultiple, MelonError, SycallArgumentNumberMismatch } from "./error";
 import { List } from "./parser";
 import {Value, StringValue, ListValue, BooleanValue, TupleValue} from './value'
 import { normalize } from "path";
@@ -118,7 +118,7 @@ export default {
             let arg = args[0].str;
             arg.trim;
             if (arg.includes(" "))
-                throw new InvalidFormat(lineNumber, `First argument of define must be a single word. Expected 1 word but got ${arg.split(" ").length} words`);
+                throw new MelonError(lineNumber, `First argument of define must be a single word. Expected 1 word but got ${arg.split(" ").length} words`);
             return new StringValue(arg);
         }
     }
