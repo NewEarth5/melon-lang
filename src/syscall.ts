@@ -122,6 +122,22 @@ export default {
             return new StringValue(arg);
         }
     },
+    // 'emojiName': {
+    //     syscallId: 'is.workflow.actions.getnameofemoji',
+    //     preprocessor: (args: Value[], lineNumber: number) => {
+    //         if (args.length != 1)
+    //             throw new SycallArgumentNumberMismatch(lineNumber, 'emojiName', 1, args.length);
+    //         if (!(args[0] instanceof StringValue))
+    //             throw new InvalidType(lineNumber, StringValue.typeName, args[0].typeName, 'First argument of emojiName must be a string.')
+    //         const regex_emoji = /[\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}\u{1F9B0}-\u{1F9B3}]/gu;
+    //         let arg = new BooleanValue(regex_emoji.test(args[0].value));
+    //         return new ListValue([arg, args[0]])
+    //         // if (!arg || arg.length != 1)
+    //         //     throw new InvalidFormat(lineNumber, `First argument of emojiName must be a single emoji. Expected 1 emoji but got ${(!arg)?"no":arg.length} emojis`);
+    //         // return new StringValue(arg.at(0));
+
+    //     }
+    // },
     'emojiName': {
         syscallId: 'is.workflow.actions.getnameofemoji',
         preprocessor: (args: Value[], lineNumber: number) => {
@@ -129,13 +145,14 @@ export default {
                 throw new SycallArgumentNumberMismatch(lineNumber, 'emojiName', 1, args.length);
             if (!(args[0] instanceof StringValue))
                 throw new InvalidType(lineNumber, StringValue.typeName, args[0].typeName, 'First argument of emojiName must be a string.')
-            const regex_emoji = /[\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}\u{1F9B0}-\u{1F9B3}]/gu;
-            let arg = new BooleanValue(regex_emoji.test(args[0].value));
-            return new ListValue([arg, args[0]])
-            // if (!arg || arg.length != 1)
-            //     throw new InvalidFormat(lineNumber, `First argument of emojiName must be a single emoji. Expected 1 emoji but got ${(!arg)?"no":arg.length} emojis`);
-            // return new StringValue(arg.at(0));
-
+            let arg = args[0].str;
+            arg.trim;
+            if (arg.includes(" "))
+                throw new InvalidFormat(lineNumber, `First argument of emojiName must be a single word. Expected 1 word but got ${arg.split(" ").length} words`);
+            const regex_emoji = /[\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}\u{1F9B0}-\u{1F9B3}]/u;
+            if (regex_emoji.test(arg))
+                throw new InvalidFormat(lineNumber, `First argument of emojiName must be an emoji. Expected emoji but got ${arg}`)
+            return new StringValue(arg);
         }
     }
 }
