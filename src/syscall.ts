@@ -133,7 +133,7 @@ export default {
             let arg = args[0].value.match(regex_emoji);
             // if (!arg || arg.length != 1)
             //     throw new InvalidFormat(lineNumber, `First argument of emojiName must be a single emoji. Expected 1 emoji but got ${(!arg)?"none":arg.length} emojis`);
-            return new StringValue(arg[0]);
+            return new StringValue(arg);
 
         }
     }
