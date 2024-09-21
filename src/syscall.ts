@@ -148,9 +148,10 @@ export default {
             let arg = args[0].str.trim();
             if (arg.includes(" "))
                 throw new InvalidFormat(lineNumber, `First argument of emojiName must be a single emoji. Expected 1 emoji but got ${arg.split(" ").length} emojis`);
-            const regex_emoji = /[\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}\u{1F9B0}-\u{1F9B3}]/u;
-            if (regex_emoji.test(arg))
-                throw new InvalidFormat(lineNumber, `First argument of emojiName must be an emoji. Expected emoji but got ${arg}`)
+            const regex_emoji = /[\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}\u{1F9B0}-\u{1F9B3}]/ug;
+            let emojis = arg.match(regex_emoji);
+            if (emojis.length > 1)
+                throw new InvalidFormat(lineNumber, `First argument of emojiName must be an emoji. Expected emoji but got ${emojis.length}`)
             return new StringValue(arg);
         }
     }
