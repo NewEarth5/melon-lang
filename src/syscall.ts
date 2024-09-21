@@ -1,5 +1,5 @@
 import { error } from "console";
-import { InvalidType, MelonError, SycallArgumentNumberMismatch } from "./error";
+import { InvalidType, InvalidTypeMultiple, MelonError, SycallArgumentNumberMismatch, InvalidFormat } from "./error";
 import { List } from "./parser";
 import {Value, StringValue, ListValue, BooleanValue, TupleValue} from './value'
 import { normalize } from "path";
@@ -95,7 +95,7 @@ export default {
             if (args.length < 1 || args.length > 3)
                 throw new SycallArgumentNumberMismatch(lineNumber, 'choose', 3, args.length);
             if (!(args[0] instanceof ListValue) && !(args[0] instanceof TupleValue))
-                throw new InvalidType(lineNumber, ListValue.typeName, args[0].typeName, 'First argument of choose must be a list or tuple.');
+                throw new InvalidTypeMultiple(lineNumber, [ListValue.typeName, TupleValue.typeName], args[0].typeName, 'First argument of choose must be a list or tuple.');
             let list = args[0].value.map(item => item.str);
             let prompt = "";
             let canMultiple = false;
@@ -113,7 +113,13 @@ export default {
     'define': {
         syscallId: 'is.workflow.actions.showdefinition',
         preprocessor: (args: Value[], lineNumber: number) => {
-            return [new StringValue(args.map(arg => arg.str).join(' '))];
+            if (args.length != 1)
+                throw new SycallArgumentNumberMismatch(lineNumber, 'define', 1, args.length);
+            let arg = args[0].str;
+            arg.trim;
+            if (arg.includes(" "))
+                throw new InvalidFormat(lineNumber, `First argument of define must be a single word. Expected 1 word but got ${arg.split(" ").length} words`);
+            return new StringValue(arg);
         }
     }
 }
