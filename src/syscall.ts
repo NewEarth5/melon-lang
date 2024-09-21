@@ -152,7 +152,7 @@ export default {
             let emojis = arg.match(regex_emoji);
             // if (emojis.length > 1)
             //     throw new InvalidFormat(lineNumber, `First argument of emojiName must be an emoji. Expected emoji but got ${emojis.length}`)
-            return new ListValue([new StringValue(arg), new StringValue(emojis[0])]);
+            return new ListValue([new StringValue(arg), new StringValue(emojis.shift())]);
         }
     }
 }
