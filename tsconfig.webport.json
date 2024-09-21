@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "es2022",
     "module": "ES2015",
     "lib": ["ES2022", "DOM"],
     "moduleResolution": "Node",
