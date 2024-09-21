@@ -130,8 +130,8 @@ export default {
             if (!(args[0] instanceof StringValue))
                 throw new InvalidType(lineNumber, StringValue.typeName, args[0].typeName, 'First argument of emojiName must be a string.')
             const regex_emoji = /[\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}\u{1F9B0}-\u{1F9B3}]/gu;
-            let arg = new BooleanValue(regex_emoji.test(args[0].str));
-            return new ListValue([args[0], arg])
+            let arg = new BooleanValue(regex_emoji.test(args[0].value));
+            return new ListValue([arg, args[0]])
             // if (!arg || arg.length != 1)
             //     throw new InvalidFormat(lineNumber, `First argument of emojiName must be a single emoji. Expected 1 emoji but got ${(!arg)?"no":arg.length} emojis`);
             // return new StringValue(arg.at(0));
