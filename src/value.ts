@@ -4,6 +4,16 @@ import { Type, Expose, Transform } from "class-transformer";
 import { Instruction } from "./vm";
 import { CompilerBug, DivisionByZero, IndexError, InvalidOperationOnType, InvalidType, KeyError, NativeFunctionArgumentNumberMismatch } from './error';
 
+// Uncompleted: didn't find a way to dynamicly define measurements...
+// const UNITS = {
+//     'Acceleration': ['m/s²', 'g-force'],
+//     'Angle': ['deg', 'arcmin', 'arcsec', 'rad', 'grad', 'rev'],
+//     'Area': ['mm²', 'square kilometres', 'square meters', 'square centimetres', 'µm²', 'nm²', 'square inches', 'square feet', 'square yards', 'square milese', 'acres', 'a', 'hectares'],
+//     'Concentration Mass': ['g/l', 'milligrams per decilitre', 'µg/m³'],
+//     'Dispersion': ['parts per million'],
+//     'Duration': ['milliseconds', 'microseconds', 'nanoseconds', 'ps', 'seconds', 'minutes', 'hours'],
+// }
+
 const getAsValue = (value) => {
     switch (value.___serialization_type) {
         case BooleanValue.typeName:
@@ -866,3 +876,34 @@ export class NullValue extends Value {
         return other instanceof NullValue;
     }
 }
+
+// Uncompleted: didn't find a way to dynamicly define measurements...
+// export class MeasurementValue extends Value {
+
+//     public unit: string;
+//     public category: string;
+//     public static readonly typeName = 'measurement';
+
+//     constructor(value: Number, unit: string, category: string) {
+//         super(value);
+//         this.unit = unit;
+//         this.category = category;
+//     }
+    
+//     get repr(): string {
+//         return this.value.toString();
+//     }
+
+//     get str(): string {
+//         return this.value.toString();
+//     }
+
+//     equals(other: Value): boolean {
+//         return other instanceof NumberValue && this.value === other.value;
+//     }
+
+//     @ValueMethod({args: []})
+//     getFullName(lineNumber: number, ...args: Value[]): string {
+//         return `${this.value} ${this.unit}`
+//     }
+// }
