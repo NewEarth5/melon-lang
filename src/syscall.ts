@@ -149,7 +149,7 @@ export default {
             const regex_emoji = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi;
             let arg = args[0].value.trim();
             if (!(regex_emoji.test(arg)))
-                throw new InvalidFormat(lineNumber, `First argument of emojiName must be an emoji. Expected an emoji but got "${arg}"`);
+                throw new InvalidFormat(lineNumber, `First argument of emojiName must be an emoji. Expected an emoji but got "${arg}", rgex test result ${regex_emoji.test(arg)}`);
             if (arg.includes(" "))
                 throw new InvalidFormat(lineNumber, `First argument of emojiName must be a single emoji. Expected 1 emoji but got ${arg.split(" ").length} words`);
             let emojis = arg.match(regex_emoji);
