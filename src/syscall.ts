@@ -146,7 +146,7 @@ export default {
             if (!(args[0] instanceof StringValue))
                 throw new InvalidType(lineNumber, StringValue.typeName, args[0].typeName, 'First argument of emojiName must be a string.');
             // const regex_emoji = /[\p{Extended_Pictographic}\u{1F3FB}-\u{1F3FF}\u{1F9B0}-\u{1F9B3}]/gu;
-            const regex_emoji = new RegExp(/(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/, 'gi')
+            const regex_emoji = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi;
             let arg = args[0].value.trim();
             if (!(regex_emoji.test(arg)))
                 throw new InvalidFormat(lineNumber, `First argument of emojiName must be an emoji. Expected an emoji but got "${arg}"`);
